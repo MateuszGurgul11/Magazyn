@@ -45,7 +45,7 @@ def add_items():
 def sell_items():
     sell_name = input("Podaj nazwę przedmiotu: ")
     sell_name = sell_name.capitalize()
-    sell_quantity = int(input("Podaj ilość, jaką chcesz kupić: "))
+    sell_quantity = int(input("Podaj ilość, sprzedanych przedmiotów: "))
 
     item_found = False 
 
