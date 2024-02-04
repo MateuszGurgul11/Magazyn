@@ -1,3 +1,5 @@
+import csv
+
 items = [
     {'name' : 'Komputer', 'quantity' : 2, 'unit' : 'kg', 'unit_price' : 1300},
     {'name' : 'Drukarka', 'quantity' : 3, 'unit' : 'kg', 'unit_price': 1000},
@@ -41,24 +43,34 @@ def add_items():
 
 
 def sell_items():
-    sell_name = input("Podaj nazwe przedmiotu: ")
+    sell_name = input("Podaj nazwę przedmiotu: ")
     sell_name = sell_name.capitalize()
-    sell_quantity = int(input("Podaj ilosc jaka chcesz kupic: "))
+    sell_quantity = int(input("Podaj ilość, jaką chcesz kupić: "))
+
+    item_found = False 
 
     for item in items:
         if sell_name == item['name']:
-            price = item['unit_price'] * sell_quantity
-            item['quantity'] -= sell_quantity
+            if sell_quantity <= item['quantity']:
+                price = item['unit_price'] * sell_quantity
+                item['quantity'] -= sell_quantity
 
-            new_dict = {'name' : sell_name, 'quantity' : sell_quantity, 'unit_price' : price}
-            sold_items.append(new_dict)
+                new_dict = {'name': sell_name, 'quantity': sell_quantity, 'unit_price': price}
+                sold_items.append(new_dict)
 
-            if item['quantity'] == 0:
-                print('Produkt jest wyprzedany')
-                item['quantity'] = 0
+                print(f"Sprzedano {sell_name} ilość sztuk: {sell_quantity} o wartości {price}")
+            else:
+                print("-------------------------------------------------")
+                print(f"Niewystarczająca ilość {sell_name} w magazynie.")
+                print("-------------------------------------------------")
+            item_found = True
+            break
+
+    if not item_found:
+        print(f"Przedmiot {sell_name} nie znajduje się w magazynie.")
 
     get_items()
-    print(f"Sprzedano {sell_name} ilosc sztuk: {sell_quantity} o wartosci {price}")
+
 
 def get_cost():
     costs = sum(price['unit_price'] for price in items)
@@ -80,6 +92,31 @@ def show_revenue():
 
     print(revenue)
 
+
+def export_items_to_csv():
+    with open('magazyn.csv', 'w', newline = '') as csvfile:
+        filednames = ['name', 'quantity', 'unit', 'unit_price']
+        writer = csv.DictWriter(csvfile, fieldnames = filednames)
+
+        writer.writeheader()
+
+        for item in items:
+            writer.writerow(item)
+
+        print('Dane magazynu zostaly wyeksportowane prawidlowo!')
+
+def export_sales_to_csv():
+    with open('sold_items.csv', 'w', newline='') as csvfile:
+        fieldnames = ['name', 'quantity', 'unit_price']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for item in sold_items:
+            writer.writerow(item)
+
+    print('Dane sprzedaży zostały wyeksportowane prawidłowo!')
+
+
 def menu():
     menu_answer = input("Co chcialbys zrobic? ")
 
@@ -91,6 +128,9 @@ def menu():
         sell_items()
     elif menu_answer.lower() == 'revenue':
         show_revenue()
+    elif menu_answer.lower() == 'save':
+        export_items_to_csv()
+        export_sales_to_csv()
     elif menu_answer.lower() == 'exit':
         print("Wychodzisz z programu!")
         exit()
