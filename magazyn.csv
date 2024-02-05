@@ -1,4 +1,5 @@
 name,quantity,unit,unit_price
-Mikrofala,1,kg,500
-Latarka,100,g,20
-Kosiarka,10,kg,2500
+Kosiarka,10,kg,20
+Latarka,-1,g,200
+Komputer,10,g,2000
+Drukarka,100,kg,20

@@ -47,11 +47,11 @@ def sell_items():
 
     for item in items:
         if sell_name == item['name']:
-            if sell_quantity <= item['quantity']:
-                price = item['unit_price'] * sell_quantity
-                item['quantity'] -= sell_quantity
+            if sell_quantity <= int(item['quantity']):
+                price = int(item['unit_price']) * sell_quantity
+                item['quantity'] = str(int(item['quantity']) - sell_quantity)
 
-                new_dict = {'name': sell_name, 'quantity': sell_quantity, 'unit_price': price}
+                new_dict = {'name': sell_name, 'quantity': str(sell_quantity), 'unit_price': str(price)}
                 sold_items.append(new_dict)
 
                 print(f"Sprzedano {sell_name} ilość sztuk: {sell_quantity} o wartości {price}")
@@ -69,11 +69,11 @@ def sell_items():
 
 
 def get_cost():
-    costs = sum(price['unit_price'] for price in items)
+    costs = sum(int(price['unit_price']) for price in items)
     return costs
 
 def get_income():
-    income = sum(price['unit_price'] for price in sold_items)
+    income = sum(int(price['unit_price']) for price in sold_items)
     return income
 
 def show_revenue():
@@ -127,7 +127,7 @@ def load_items_from_csv(file_path):
 
 
 def menu():
-    menu_answer = input("Co chcialbys zrobic? ")
+    menu_answer = input("Co chcialbys zrobic? \n -storage\n -add\n -sell\n -revenue\n -save\n -load\n -exit\n")
 
     if menu_answer.lower() == 'storage':
         get_items()
