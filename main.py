@@ -1,11 +1,7 @@
 import csv
 
-items = [
-    {'name' : 'Komputer', 'quantity' : 2, 'unit' : 'kg', 'unit_price' : 1300},
-    {'name' : 'Drukarka', 'quantity' : 3, 'unit' : 'kg', 'unit_price': 1000},
-    {'name' : 'Mikrofala', 'quantity' : 1, 'unit' : 'kg', 'unit_price': 500}
-]
 
+items = []
 sold_items = []
 
 def get_items():
@@ -117,6 +113,19 @@ def export_sales_to_csv():
     print('Dane sprzedaży zostały wyeksportowane prawidłowo!')
 
 
+def load_items_from_csv(file_path):
+    global items
+    items.clear()
+
+    with open(file_path, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            items.append(row)
+
+    print(f"Dane z pliku {file_path} zostały wczytane")
+
+
+
 def menu():
     menu_answer = input("Co chcialbys zrobic? ")
 
@@ -131,9 +140,24 @@ def menu():
     elif menu_answer.lower() == 'save':
         export_items_to_csv()
         export_sales_to_csv()
+    elif menu_answer.lower() == 'load':
+        file_path = input("Podaj ścieżkę do pliku CSV: ")
+        load_items_from_csv(file_path)
     elif menu_answer.lower() == 'exit':
         print("Wychodzisz z programu!")
         exit()
 
-while True:
-    menu()
+
+def main():
+    file_path = input("Podaj ściezkę do pliku magazynu (CSV): ")
+
+    try:
+        load_items_from_csv(file_path)
+    except FileNotFoundError:
+        print(f"Plik o ściezce {file_path} nie został znaleziony. Dane magazynu zostaną wczytane z domyślnej listy")
+    while True:
+        menu()
+
+
+if __name__ == "__main__":
+    main()
