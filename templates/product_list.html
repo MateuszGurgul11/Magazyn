@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td> </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit }}</td>
+                <td>{{ item.unit_price }}</td>
+                <td><button type="submit">Sell Product</button></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <form method="post" action="{{ url_for('product_list') }}">
+                    <td>{{ form.csfr_token }}</td>
+                    <td>{{ form.name }}</td>
+                    <td>{{ form.quantity }}</td>
+                    <td>{{ form.unit }}</td>
+                    <td>{{ form.unit_price }}</td>
+                    <td><button type="submit">Add Product</button></td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
