@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sold Items</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for name, item in sold_items.items() %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.quantity|int * item.unit_price|int }} zł</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Items costs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total_price = 0 %}
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.quantity|int * item.unit_price|int }} zł</td>
+                </tr>
+                {% set total_price = total_price + (item.quantity|int * item.unit_price|int) %}
+            {% endfor %}
+            <tr>
+                <td colspan="2"><b>Total Price:</b> {{ total_price }} zł</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

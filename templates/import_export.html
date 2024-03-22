@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Import i Export danych</h1>
+
+    
+    <form action="{{ url_for('import_csv') }}" method="post" enctype="multipart/form-data">
+        <h3>Import</h3>
+        <input type="file" name="csv_file">
+        <button type="submit">Import CSV</button>
+    </form>
+
+    
+    <form action="{{ url_for('export_csv') }}" method="get">
+        <h3>Export</h3>
+        <button type="submit">Export CSV</button>
+    </form>
+
+{% endblock %}

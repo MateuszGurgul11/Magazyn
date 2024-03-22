@@ -139,3 +139,55 @@ td:first-child {
 td:last-child {
   border-right: 1px solid #ddd;
 }
+
+/* Styl dla formularza */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center; /* Wyśrodkowanie zawartości formularza */
+}
+
+/* Styl dla tytułu formularza */
+h3 {
+  margin-bottom: 20px;
+}
+
+/* Styl dla pola wprowadzania pliku */
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styl dla przycisku "Import CSV" */
+form button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #555; /* Szary kolor przycisku */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Styl dla przycisku "Export CSV" */
+form button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #555; /* Szary kolor przycisku */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Styl dla przycisku po najechaniu myszką */
+form button:hover {
+  background-color: #333; /* Ciemniejszy odcień szarego przycisku po najechaniu myszką */
+}

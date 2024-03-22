@@ -17,12 +17,17 @@
         <tbody>
             {% for item in items %}
             <tr>
-                <td> </td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.unit }}</td>
-                <td>{{ item.unit_price }}</td>
-                <td><button type="submit">Sell Product</button></td>
+                <form method="post" action="{{ url_for('sell_product', product_name=item.name) }}">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.unit }}</td>
+                    <td>{{ item.unit_price }}</td>
+                    <td>
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit">Sell product</button>
+                    </td>
+                </form>
             </tr>
             {% endfor %}
             <tr>
@@ -37,5 +42,6 @@
             </tr>
         </tbody>
     </table>
+    <p>{{ product_name }}</p>
 
 {% endblock %}
