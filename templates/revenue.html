@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Sold Items</h1>
+    {% set total_price = 0 %}
     <table>
         <thead>
             <tr>
@@ -31,17 +32,18 @@
             </tr>
         </thead>
         <tbody>
-            {% set total_price = 0 %}
+            {% set ns = namespace(total_price=0) %}
             {% for item in items %}
+                {% set item_total = item.quantity|int * item.unit_price|int %}
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td>{{ item.quantity|int * item.unit_price|int }} zł</td>
+                    <td>{{ item_total }} zł</td>
                 </tr>
-                {% set total_price = total_price + (item.quantity|int * item.unit_price|int) %}
+                {% set ns.total_price = ns.total_price + item_total %}
             {% endfor %}
             <tr>
-                <td colspan="2"><b>Total Price:</b> {{ total_price }} zł</td>
+                <td colspan="2"><b>Total Price:</b> {{ ns.total_price }} zł</td>
                 <td></td>
             </tr>
         </tbody>
